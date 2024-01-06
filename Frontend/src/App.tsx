@@ -9,7 +9,7 @@ function App() {
   //#region Handlers
 
   const handleLogin = (user: User) => {
-    console.log(user.name + " logedd in");
+    console.log(user.fullname + " logedd in");
   };
 
   //#endregion

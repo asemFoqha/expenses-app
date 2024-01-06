@@ -11,7 +11,11 @@ const LoginForm: FC<Props> = ({ handleLogin }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleLogin({ id: 123, name: "ayman" });
+          handleLogin({
+            _id: "123",
+            fullname: "ayman",
+            email: "asem@gmail.com",
+          });
         }}
       >
         <div className="mb-3">

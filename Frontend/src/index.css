@@ -13,6 +13,8 @@
 
 .form-container {
   max-width: 550px;
+  flex: 1;
+  padding: 1rem;
 }
 .navbar,
 .navbar ul {

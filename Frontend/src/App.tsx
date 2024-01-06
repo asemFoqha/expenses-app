@@ -2,6 +2,7 @@ import { useState } from "react";
 import LoginPage from "./Pages/LoginPage";
 import Navbar from "./components/Navbar/Navbar";
 import User from "./interfaces/User";
+import Signup from "./Pages/Signup";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -19,7 +20,8 @@ function App() {
       <Navbar />
       <div className="full-height">
         {/* routes */}
-        <LoginPage handleLogin={handleLogin} />
+        {/* <LoginPage handleLogin={handleLogin} /> */}
+        <Signup handleLogin={handleLogin} />
       </div>
     </div>
   );

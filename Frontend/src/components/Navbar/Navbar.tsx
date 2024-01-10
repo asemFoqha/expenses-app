@@ -1,4 +1,10 @@
+import { Link } from "react-router-dom";
+import UserContext from "../../context/userContext";
+import { useContext } from "react";
+
 const Navbar = () => {
+  const { user, setUser } = useContext(UserContext);
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -9,19 +15,21 @@ const Navbar = () => {
         <div className=" navbar">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
-                Home
-              </a>
+              {
+                <Link to={"/"} className="nav-link" aria-current="page">
+                  Home
+                </Link>
+              }
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link to={"login"} className="nav-link">
                 Login
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link to={"signup"} className="nav-link">
                 Signup
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

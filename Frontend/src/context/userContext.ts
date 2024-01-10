@@ -7,6 +7,6 @@ interface MyContextProps {
   setUser: Dispatch<SetStateAction<User | null>>;
 }
 
-const UserContext = createContext<MyContextProps | undefined>(undefined);
+const UserContext = createContext<MyContextProps>({} as MyContextProps);
 
 export default UserContext;

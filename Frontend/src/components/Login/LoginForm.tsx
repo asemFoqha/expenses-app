@@ -9,7 +9,7 @@ const LoginForm: FC = () => {
     email: "",
     password: "",
   });
-  const context = useContext(UserContext);
+  const {user,setUser} = useContext(UserContext);
 
   //#region Handlers
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,7 +19,7 @@ const LoginForm: FC = () => {
         if (!data) return; //validate the form in the next task
         sessionStorage.setItem("token", JSON.stringify(data));
         const newUser = jwtDecode<User>(data);
-        context?.setUser(newUser);
+        setUser(newUser);
       });
     } catch (ex) {
       console.log(ex);

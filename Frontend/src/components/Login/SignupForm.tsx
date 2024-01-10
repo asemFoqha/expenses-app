@@ -1,29 +1,29 @@
-import { FC } from "react";
-import User from "../../interfaces/User";
+import { FC, useState } from "react";
 
-interface Props {
-  handleLogin: (user: User) => void;
+interface SignupUser {
+  email?: string;
+  fullname?: string;
+  password?: string;
 }
 
-const SignupForm: FC<Props> = ({ handleLogin }) => {
+const SignupForm: FC = () => {
+  const [user, setUser] = useState<SignupUser | null>(null);
+
+  //#region Handlers
+
+  //#endregion
+
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleLogin({
-            _id: "123",
-            fullname: "ayman",
-            email: "asem@gmail.com",
-          });
-        }}
-      >
+      <form>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
           </label>
           <input
             type="email"
+            value={user?.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -34,7 +34,9 @@ const SignupForm: FC<Props> = ({ handleLogin }) => {
             Full Name
           </label>
           <input
-            type="email"
+            type="text"
+            value={user?.fullname}
+            onChange={(e) => setUser({ ...user, fullname: e.target.value })}
             className="form-control"
             id="fullname"
             aria-describedby="fullnameHelp"
@@ -46,6 +48,8 @@ const SignupForm: FC<Props> = ({ handleLogin }) => {
             Password
           </label>
           <input
+            value={user?.password}
+            onChange={(e) => setUser({ ...user, password: e.target.value })}
             type="password"
             className="form-control"
             id="exampleInputPassword1"

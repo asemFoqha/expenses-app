@@ -10,6 +10,11 @@ const Home = lazy(() => import("./Pages/Home"));
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    !user ? navigate("login") : navigate("/");
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

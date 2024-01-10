@@ -1,57 +1,73 @@
-import { FC } from "react";
+import { FC, useContext, useState } from "react";
 import User from "../../interfaces/User";
+import { LoginUser, login } from "../../services/login/loginService";
+import { jwtDecode } from "jwt-decode";
+import UserContext from "../../context/userContext";
 
-interface Props {
-  handleLogin: (user: User) => void;
-}
+const LoginForm: FC = () => {
+  const [loginUser, setLoginUser] = useState<LoginUser>({
+    email: "",
+    password: "",
+  });
+  const context = useContext(UserContext);
 
-const LoginForm: FC<Props> = ({ handleLogin }) => {
+  //#region Handlers
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      login(loginUser).then(({ data: { data } }) => {
+        if (!data) return; //validate the form in the next task
+        sessionStorage.setItem("token", JSON.stringify(data));
+        const newUser = jwtDecode<User>(data);
+        context?.setUser(newUser);
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  //#endregion
+
   return (
     <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleLogin({
-            _id: "123",
-            fullname: "ayman",
-            email: "asem@gmail.com",
-          });
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
           </label>
           <input
             type="email"
+            value={loginUser?.email}
+            onChange={(e) =>
+              setLoginUser({
+                password: loginUser?.password,
+                email: e.target.value,
+              })
+            }
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
           />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
+
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">
             Password
           </label>
           <input
+            value={loginUser?.password}
+            onChange={(e) =>
+              setLoginUser({
+                email: loginUser?.email,
+                password: e.target?.value,
+              })
+            }
             type="password"
             className="form-control"
             id="exampleInputPassword1"
           />
         </div>
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label" htmlFor="exampleCheck1">
-            Check me out
-          </label>
-        </div>
+
         <button type="submit" className="btn btn-primary">
           Submit
         </button>

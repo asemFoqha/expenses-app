@@ -17,7 +17,7 @@ const Home = lazy(() => import("./Pages/Home"));
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,10 +43,7 @@ function App() {
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               {/* Use a wrapper Route to handle authentication */}
-              <Route
-                path="/"
-                element={user ? <Home /> : <Navigate to="/login" />}
-              />
+              <Route path="/" element={<Home />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="*" element={<Navigate to={"/login"} />} />

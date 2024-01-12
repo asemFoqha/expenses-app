@@ -1,8 +1,15 @@
+import { jwtDecode } from "jwt-decode";
 import { Suspense, lazy, useEffect, useState } from "react";
+import {
+  Navigate,
+  Route,
+  Routes,
+  redirect,
+  useNavigate,
+} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import User from "./interfaces/User";
 import UserContext from "./context/userContext";
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import User from "./interfaces/User";
 
 const LoginPage = lazy(() => import("./Pages/LoginPage"));
 const Signup = lazy(() => import("./Pages/Signup"));
@@ -10,11 +17,23 @@ const Home = lazy(() => import("./Pages/Home"));
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
     !user ? navigate("login") : navigate("/");
   }, [user]);
+
+  useEffect(() => {
+    const savedUser = sessionStorage.getItem("token")
+      ? JSON.parse(sessionStorage.getItem("token")!)
+      : null;
+    if (savedUser) {
+      const newUser = jwtDecode<User>(savedUser);
+      setUser(newUser);
+      redirect("/");
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

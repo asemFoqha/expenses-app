@@ -1,29 +1,43 @@
-import { FC, useState } from "react";
-
-interface SignupUser {
-  email?: string;
-  fullname?: string;
-  password?: string;
-}
+import { FC, FormEvent, useContext, useState } from "react";
+import { SignupUser, signup } from "../../services/login/loginService";
+import UserContext from "../../context/userContext";
 
 const SignupForm: FC = () => {
-  const [user, setUser] = useState<SignupUser | null>(null);
+  const [user, setSignUser] = useState<SignupUser>({
+    email: "",
+    fullname: "",
+    password: "",
+  });
+
+  const { setUser } = useContext(UserContext);
 
   //#region Handlers
+
+  const handleSignup = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      signup(user).then((res) => {
+        sessionStorage.setItem("token", JSON.stringify(res.data.data.token));
+        setUser(res.data.data.user);
+      });
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
 
   //#endregion
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSignup}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
           </label>
           <input
             type="email"
-            value={user?.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            value={user?.email || ""}
+            onChange={(e) => setSignUser({ ...user, email: e.target.value })}
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -35,8 +49,8 @@ const SignupForm: FC = () => {
           </label>
           <input
             type="text"
-            value={user?.fullname}
-            onChange={(e) => setUser({ ...user, fullname: e.target.value })}
+            value={user?.fullname || ""}
+            onChange={(e) => setSignUser({ ...user, fullname: e.target.value })}
             className="form-control"
             id="fullname"
             aria-describedby="fullnameHelp"
@@ -48,14 +62,14 @@ const SignupForm: FC = () => {
             Password
           </label>
           <input
-            value={user?.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            value={user?.password || ""}
+            onChange={(e) => setSignUser({ ...user, password: e.target.value })}
             type="password"
             className="form-control"
             id="exampleInputPassword1"
           />
         </div>
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="exampleInputPassword2" className="form-label">
             Confirm Password
           </label>
@@ -64,7 +78,7 @@ const SignupForm: FC = () => {
             className="form-control"
             id="exampleInputPassword2"
           />
-        </div>
+        </div> */}
 
         <button type="submit" className="btn btn-primary">
           Submit

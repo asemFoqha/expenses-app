@@ -1,15 +1,15 @@
+import { jwtDecode } from "jwt-decode";
 import { FC, useContext, useState } from "react";
+import UserContext from "../../context/userContext";
 import User from "../../interfaces/User";
 import { LoginUser, login } from "../../services/login/loginService";
-import { jwtDecode } from "jwt-decode";
-import UserContext from "../../context/userContext";
 
 const LoginForm: FC = () => {
   const [loginUser, setLoginUser] = useState<LoginUser>({
     email: "",
     password: "",
   });
-  const {user,setUser} = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   //#region Handlers
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

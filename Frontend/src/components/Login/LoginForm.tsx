@@ -3,13 +3,16 @@ import { FC, useContext, useState } from "react";
 import UserContext from "../../context/userContext";
 import User from "../../interfaces/User";
 import { LoginUser, login } from "../../services/login/loginService";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm: FC = () => {
   const [loginUser, setLoginUser] = useState<LoginUser>({
     email: "",
     password: "",
   });
+  const [isRemember, setIsRemember] = useState(false);
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   //#region Handlers
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,9 +20,11 @@ const LoginForm: FC = () => {
     try {
       login(loginUser).then(({ data: { data } }) => {
         if (!data) return; //validate the form in the next task
-        sessionStorage.setItem("token", JSON.stringify(data));
+        const storage = isRemember ? localStorage : sessionStorage;
+        storage.setItem("token", JSON.stringify(data));
         const newUser = jwtDecode<User>(data);
         setUser(newUser);
+        navigate("/");
       });
     } catch (ex) {
       console.log(ex);
@@ -67,7 +72,18 @@ const LoginForm: FC = () => {
             id="exampleInputPassword1"
           />
         </div>
-
+        <div className="mb-3 form-check">
+          <input
+            checked={isRemember}
+            onChange={() => setIsRemember(!isRemember)}
+            type="checkbox"
+            className="form-check-input"
+            id="exampleCheck1"
+          />
+          <label className="form-check-label" htmlFor="exampleCheck1">
+            Check me out
+          </label>
+        </div>
         <button type="submit" className="btn btn-primary">
           Submit
         </button>

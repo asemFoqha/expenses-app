@@ -1,6 +1,7 @@
 import { FC, FormEvent, useContext, useState } from "react";
 import { SignupUser, signup } from "../../services/login/loginService";
 import UserContext from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm: FC = () => {
   const [user, setSignUser] = useState<SignupUser>({
@@ -10,6 +11,7 @@ const SignupForm: FC = () => {
   });
 
   const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   //#region Handlers
 
@@ -19,6 +21,7 @@ const SignupForm: FC = () => {
       signup(user).then((res) => {
         sessionStorage.setItem("token", JSON.stringify(res.data.data.token));
         setUser(res.data.data.user);
+        navigate("/");
       });
     } catch (ex) {
       console.log(ex);

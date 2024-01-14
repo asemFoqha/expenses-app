@@ -1,12 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import { Suspense, lazy, useEffect, useState } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  redirect,
-  useNavigate,
-} from "react-router-dom";
+import { Navigate, Route, Routes, redirect } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import UserContext from "./context/userContext";
 import User from "./interfaces/User";
@@ -18,18 +12,11 @@ const Home = lazy(() => import("./Pages/Home"));
 function App() {
   const [user, setUser] = useState<User | null>(null);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-    !user ? navigate("login") : navigate("/");
-  }, [user]);
-
-  useEffect(() => {
-    const savedUser = sessionStorage.getItem("token")
-      ? JSON.parse(sessionStorage.getItem("token")!)
-      : null;
-    if (savedUser) {
-      const newUser = jwtDecode<User>(savedUser);
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (token) {
+      const newUser = jwtDecode<User>(token);
       setUser(newUser);
       redirect("/");
     }
@@ -43,7 +30,7 @@ function App() {
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               {/* Use a wrapper Route to handle authentication */}
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={user ? <Home /> : <LoginPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="*" element={<Navigate to={"/login"} />} />

@@ -10,6 +10,7 @@ const Navbar = () => {
   const handleLogout = () => {
     setUser(null);
     sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
   };
 
   //#endregion

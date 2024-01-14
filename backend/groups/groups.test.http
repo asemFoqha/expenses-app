@@ -3,10 +3,10 @@
 
 POST http://localhost:3000/groups
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGZjOTQyZjcyNDVhYjFmNzFhYmMzN2UiLCJmdWxsbmFtZSI6IkFzZW0gQWxmb3FoYSIsImVtYWlsIjoiYXNlbUBtaXUuZWR1IiwiaWF0IjoxNjk4OTU3ODMxfQ.axNARkPlAJHj84H8sEQEyx5JKUorOywlfJGA_zN7jUI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWExZDM5ODVmNTVlYzg2YzI1OGVjMDciLCJmdWxsbmFtZSI6ImFzZW0iLCJlbWFpbCI6ImFzZW1AbWl1LmNvbSIsImlhdCI6MTcwNTEwNDI4MH0.TXctnYYbhr3omleZOPmqejEM07w6o_lVUAZhngntoX0
 
 {
-    "title": "T Trip"
+    "title": "Group 1"
 }
 ###
 

@@ -10,9 +10,9 @@ const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use(async (req) => {
-  req.headers.Authorization = sessionStorage.getItem("token")
-    ? "Bearer " + JSON.parse(sessionStorage.getItem("token")!)
-    : "";
+  const token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
+  req.headers.Authorization = token ? "Bearer " + JSON.parse(token) : "";
   return req;
 });
 export default apiClient;

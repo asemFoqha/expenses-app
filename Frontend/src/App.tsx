@@ -26,7 +26,6 @@ function App() {
     <UserContext.Provider value={{ user, setUser }}>
       <div className="App">
         <Navbar />
-        <div className="full-height">
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               {/* Use a wrapper Route to handle authentication */}
@@ -37,7 +36,7 @@ function App() {
             </Routes>
           </Suspense>
         </div>
-      </div>
+      
     </UserContext.Provider>
   );
 }

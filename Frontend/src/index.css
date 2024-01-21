@@ -9,6 +9,7 @@
 :root {
   --navbar-height: 50px;
   --container-height: calc(100vh - 72px);
+  --devider: 1px solid rgba(0, 0, 0, 0.224);
 }
 
 .form-container {
@@ -34,8 +35,24 @@
   flex: 1;
 }
 
-.home {
+.home-wrapper {
   padding: 1rem;
+}
+.home__header {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: end;
+  padding: 10px;
+  border-bottom: var(--devider);
+}
+
+.home {
+  margin-top: 15px;
+
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 350px)
+  ); /* Flexible columns */
+  gap: 10px;
 }

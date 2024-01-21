@@ -24,7 +24,7 @@ const LoginForm: FC = () => {
         storage.setItem("token", JSON.stringify(data));
         const newUser = jwtDecode<User>(data);
         setUser(newUser);
-        navigate("/");
+        navigate("/groups");
       });
     } catch (ex) {
       console.log(ex);

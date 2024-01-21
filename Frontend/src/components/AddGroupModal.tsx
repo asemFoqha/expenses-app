@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -16,6 +16,10 @@ function AddGroupModal({ groups, setGroups }: Props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    return setValidated(false);
+  }, [show]);
 
   const handleAddGorup = () => {
     const value = title.current?.value;
@@ -39,7 +43,11 @@ function AddGroupModal({ groups, setGroups }: Props) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button
+        className="add-group-button"
+        variant="primary"
+        onClick={handleShow}
+      >
         Launch demo modal
       </Button>
 
@@ -48,7 +56,14 @@ function AddGroupModal({ groups, setGroups }: Props) {
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form noValidate validated={validated} onSubmit={handleAddGorup}>
+          <Form
+            noValidate
+            validated={validated}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleAddGorup();
+            }}
+          >
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Title</Form.Label>
               <Form.Control

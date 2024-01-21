@@ -17,12 +17,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home">
-      <AddGroupModal setGroups={setGroups} groups={groups} />
-
-      {groups.map((group) => (
-        <Card key={group._id} group={group} />
-      ))}
+    <div className="home-wrapper">
+      <div className="home__header">
+        <span>
+          <strong>Groups</strong>
+        </span>
+        <AddGroupModal setGroups={setGroups} groups={groups} />
+      </div>
+      <div className="home">
+        {groups.map((group) => (
+          <Card key={group._id} group={group} />
+        ))}
+      </div>
     </div>
   );
 };

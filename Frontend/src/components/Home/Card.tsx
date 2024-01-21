@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Group } from "../../services/homeService/groupService";
 
 const Card = ({ group }: { group: Group }) => {
@@ -6,9 +7,9 @@ const Card = ({ group }: { group: Group }) => {
       <div className="card-body">
         <h5 className="card-title">{group.title}</h5>
 
-        <a href="#" className="btn btn-primary">
-          Go somewhere
-        </a>
+        <Link to={group._id} className="btn btn-primary">
+          Go
+        </Link>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ const SignupForm: FC = () => {
       signup(user).then((res) => {
         sessionStorage.setItem("token", JSON.stringify(res.data.data.token));
         setUser(res.data.data.user);
-        navigate("/");
+        navigate("/groups");
       });
     } catch (ex) {
       console.log(ex);

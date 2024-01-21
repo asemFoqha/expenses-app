@@ -26,7 +26,7 @@ const Navbar = () => {
           <ul className="navbar-nav">
             <li className="nav-item">
               {user && (
-                <Link to={"/"} className="nav-link" aria-current="page">
+                <Link to={"/groups"} className="nav-link" aria-current="page">
                   Home
                 </Link>
               )}

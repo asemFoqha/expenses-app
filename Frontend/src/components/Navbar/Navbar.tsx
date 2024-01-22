@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import UserContext from "../../context/userContext";
-import { useContext } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser } = useAuth();
 
   //#region Handlers
 

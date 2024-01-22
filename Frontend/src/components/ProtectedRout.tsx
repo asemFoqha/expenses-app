@@ -1,15 +1,14 @@
-import { FC } from "react";
-import { Navigate, Outlet, Route } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
-interface Props {
-  authenticated: boolean;
-  element: React.ReactNode;
-  path: string;
-}
+const ProtectedRout = () => {
+  const { user } = useAuth();
+  const location = useLocation();
 
-const ProtectedRoute: FC<Props> = ({ authenticated }) => {
-  if (!authenticated) return <Navigate to="/login" />;
-  return <Outlet />;
+  return user?._id ? (
+    <Outlet />
+  ) : (
+    <Navigate to={"/login"} state={{ from: location }} replace />
+  );
 };
-
-export default ProtectedRoute;
+export default ProtectedRout;

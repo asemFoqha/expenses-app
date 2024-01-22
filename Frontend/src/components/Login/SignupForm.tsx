@@ -1,7 +1,7 @@
-import { FC, FormEvent, useContext, useState } from "react";
-import { SignupUser, signup } from "../../services/login/loginService";
-import UserContext from "../../context/userContext";
+import { FC, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { SignupUser, signup } from "../../services/login/loginService";
 
 const SignupForm: FC = () => {
   const [user, setSignUser] = useState<SignupUser>({
@@ -10,7 +10,7 @@ const SignupForm: FC = () => {
     password: "",
   });
 
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useAuth();
   const navigate = useNavigate();
 
   //#region Handlers

@@ -1,9 +1,9 @@
 import { jwtDecode } from "jwt-decode";
-import { FC, useContext, useState } from "react";
-import UserContext from "../../context/userContext";
+import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 import User from "../../interfaces/User";
 import { LoginUser, login } from "../../services/login/loginService";
-import { useNavigate } from "react-router-dom";
 
 const LoginForm: FC = () => {
   const [loginUser, setLoginUser] = useState<LoginUser>({
@@ -11,7 +11,7 @@ const LoginForm: FC = () => {
     password: "",
   });
   const [isRemember, setIsRemember] = useState(false);
-  const { setUser } = useContext(UserContext);
+  const { setUser } = useAuth();
   const navigate = useNavigate();
 
   //#region Handlers

@@ -3,7 +3,7 @@ import { Group, getGroups } from "../services/homeService/groupService";
 import Card from "../components/Home/Card";
 import AddGroupModal from "../components/AddGroupModal";
 
-const Home = () => {
+const Groups = () => {
   const [groups, setGroups] = useState<Group[]>([]);
 
   useEffect(() => {
@@ -32,4 +32,4 @@ const Home = () => {
     </div>
   );
 };
-export default Home;
+export default Groups;

@@ -48,7 +48,7 @@ function AddGroupModal({ groups, setGroups }: Props) {
         variant="primary"
         onClick={handleShow}
       >
-        Launch demo modal
+        Add Group
       </Button>
 
       <Modal show={show} onHide={handleClose}>

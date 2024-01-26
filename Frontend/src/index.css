@@ -30,10 +30,10 @@
   align-items: center;
 }
 
-.card {
+/* .card {
   max-width: 350px;
   flex: 1;
-}
+} */
 
 .home-wrapper {
   padding: 1rem;
@@ -48,11 +48,7 @@
 
 .home {
   margin-top: 15px;
-
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(200px, 350px)
-  ); /* Flexible columns */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
 }

@@ -1,18 +1,27 @@
 import { jwtDecode } from "jwt-decode";
 import { Suspense, lazy, useEffect, useState } from "react";
-import { Navigate, Route, Routes, redirect } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  redirect,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import GroupDetails from "./Pages/GroupDetails";
+
 import Navbar from "./components/Navbar/Navbar";
 import UserContext from "./context/userContext";
 import User from "./interfaces/User";
-import GroupDetails from "./Pages/GroupDetails";
-import ProtectedRoute from "./components/ProtectedRout";
 
 const LoginPage = lazy(() => import("./Pages/LoginPage"));
 const Signup = lazy(() => import("./Pages/Signup"));
-const Home = lazy(() => import("./Pages/Home"));
+const Groups = lazy(() => import("./Pages/Groups"));
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
+  const navegate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const token =
@@ -20,7 +29,8 @@ function App() {
     if (token) {
       const newUser = jwtDecode<User>(token);
       setUser(newUser);
-      redirect("/groups");
+      debugger;
+      navegate(location.pathname || "/groups");
     }
   }, []);
 
@@ -31,8 +41,11 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/groups">
-              <Route index element={user ? <Home /> : <LoginPage />} />
-              <Route path=":id" element={<GroupDetails />} />
+              <Route index element={user ? <Groups /> : <LoginPage />} />
+              <Route
+                path=":id"
+                element={user ? <GroupDetails /> : <LoginPage />}
+              />
             </Route>
 
             <Route path="/login" element={<LoginPage />} />

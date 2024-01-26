@@ -26,7 +26,7 @@ const Navbar = () => {
             <li className="nav-item">
               {user && (
                 <Link to={"/groups"} className="nav-link" aria-current="page">
-                  Home
+                  Groups
                 </Link>
               )}
             </li>
